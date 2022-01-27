@@ -10,7 +10,9 @@ Gettin' there.
 
 ## Requirements
 
-`bspwm`, `sxhkd`, `rofi`, `polybar`, `nitrogen`
+Not all of them. Will update in the future...
+
+`bspwm`, `sxhkd`, `rofi`, `polybar`, `nitrogen`, `flameshot`
 
 ## Cool Features
 

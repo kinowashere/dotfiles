@@ -1,0 +1,183 @@
+;--------------------------------------------
+; Colors                                    ;
+;--------------------------------------------
+
+[colors]
+	bg        = ${xrdb:background}
+	fg        = ${xrdb:foreground}
+	black_1   = ${xrdb:color0}
+	black_2   = ${xrdb:color8}
+	red_1     = ${xrdb:color1}
+	red_2     = ${xrdb:color9}
+	green_1   = ${xrdb:color2}
+	green_2   = ${xrdb:color10}
+	yellow_1  = ${xrdb:color3}
+	yellow_2  = ${xrdb:color11}
+	blue_1    = ${xrdb:color4}
+	blue_2    = ${xrdb:color12}
+	magenta_1 = ${xrdb:color5}
+	magenta_2 = ${xrdb:color13}
+	cyan_1    = ${xrdb:color6}
+	cyan_2    = ${xrdb:color14}
+	white_1   = ${xrdb:color7}
+	white_2   = ${xrdb:color15}
+
+;--------------------------------------------
+; Base Bar                                  ;
+;--------------------------------------------
+
+[bar/base]
+	width    = 100%
+	height   = 32
+	offset-x = 0
+	offset-y = 0
+
+	bottom = false
+
+	background = ${colors.bg}
+	foreground = ${colors.fg}
+
+;	border-bottom-size = 0
+;	border-top-size    = 10
+;	border-left-size   = 20
+;	border-right-size  = 20
+
+	font-N = <fontconfig pattern>;<vertical offset>
+	font-0 = "JetBrainsMono:size=10:weight=bold;4"
+	font-1 = "Siji:size=12;3"
+
+	modules-right  = battery volume date
+	modules-center = sys-menu
+	modules-left = workspaces
+;	modules-left = ram cpu
+
+	fixed-center = true
+
+;	radius = 12
+
+;--------------------------------------------
+; modules                                   ;
+;--------------------------------------------
+
+[module/date]
+	type     = internal/date
+	interval = 1.0
+	time     = "%I:%M %p"
+	date     = "%A - %d/%m/%Y"
+	label    = "%date% %time%"
+
+	format         = <label>
+	format-padding = 0
+
+	label-foreground = ${colors.yellow_1}
+	label-padding    = 4
+
+[module/battery]
+	type          = internal/battery
+	full-at       = 98
+	battery       = BAT0
+	adapter       = AC0
+	poll-interval = 5
+
+	format-charging = <label-charging>
+	label-charging            = " %percentage%%"
+	label-charging-foreground = ${colors.green_1}
+	label-charging-padding    = 1
+
+	format-discharging = <ramp-capacity><label-discharging>
+	label-discharging            = "%percentage%%"
+	label-discharging-foreground = ${colors.yellow_1}
+	label-discharging-padding    = 1
+	ramp-capacity-0				= ""
+	ramp-capacity-1				= ""
+	ramp-capacity-2				= ""
+	ramp-capacity-3				= ""
+	ramp-capacity-4				= ""
+	ramp-capacity-5				= ""
+	ramp-capacity-6				= ""
+	ramp-capacity-7				= ""
+
+	format-full = <label-full>
+	label-full            		= " %percentage%%"
+	label-full-foreground 		= ${colors.blue_1}
+	label-full-padding    		= 1
+
+[module/volume]
+	type          = internal/pulseaudio
+	format-volume = <ramp-volume> <label-volume>
+
+	mapped = true
+
+	label-volume            = "%percentage%%"
+	label-volume-foreground = ${colors.cyan_1}
+	ramp-volume-foreground	= ${colors.cyan_1}
+
+
+	format-muted = <label-muted>
+
+	label-muted            = ""
+	label-muted-foreground = ${colors.red_1}
+	label-muted-padding    = 1
+
+	format-volume-padding = 0
+	format-muted-padding  = 0
+
+	ramp-volume-0 = ""
+	ramp-volume-1 = ""
+	ramp-volume-2 = ""
+
+[module/cpu]
+	type             = internal/cpu
+	interval         = 0.5
+	format           = <label>
+	label            = %percentage%%
+	label-background = ${colors.bg}
+	label-foreground = ${colors.magenta_1}
+	label-padding    = 1
+
+[module/ram]
+	type     = internal/memory
+	interval = 3
+
+	format           = <label>
+	label            = "%percentage_used%%"
+	label-background = ${colors.bg}
+	label-foreground = ${colors.cyan_1}
+	label-padding    = 1
+
+
+[module/workspaces]
+	type            = internal/bspwm
+	format          = <label-state><label-mode>
+	index-sort      = true
+	wrapping-scroll = false
+
+	label-focused-background = ${colors.fg}
+	label-focused-foreground = ${colors.bg}
+	label-focused-padding    = 1
+
+	label-empty = 
+
+	label-occupied-padding    = 1
+
+	label-urgent-background = ${colors.red_1}
+	label-urgent-foreground = ${colors.fg}
+	label-urgent-padding    = 1
+
+	pin-workspaces = true
+
+[module/sys-menu]
+	type					= custom/menu
+	expand-right			= false
+	label-open				= 
+	label-open-foreground	= ${colors.cyan_1}
+	label-close				= 
+	label-separator			= "  "
+
+	menu-0-0				= 
+	menu-0-0-foreground		= ${colors.red_1}
+	menu-0-0-exec			= shutdown now
+
+	menu-0-1				= 
+	menu-0-1-foreground		= ${colors.green_1}
+	menu-0-1-exec			= bspc quit
