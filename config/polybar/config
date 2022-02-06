@@ -38,39 +38,51 @@
 	foreground = ${colors.fg}
 
 ;	border-bottom-size = 0
-;	border-top-size    = 10
-;	border-left-size   = 20
-;	border-right-size  = 20
+	border-top-size    = 8
+	border-left-size   = 8
+	border-right-size  = 8
 
 	font-N = <fontconfig pattern>;<vertical offset>
-	font-0 = "JetBrainsMono:size=10:weight=bold;4"
-	font-1 = "Siji:size=12;3"
+	font-0 = "Iosevka:size=10:weight=bold;4"
+	font-1 = "Iosevka:size=12;3"
+	font-2 = "Iosevka:size=18;6"
 
-	modules-right  = battery volume date
+	modules-right  = battery spacer volume spacer date-icon date
 	modules-center = sys-menu
 	modules-left = workspaces
-;	modules-left = ram cpu
 
 	fixed-center = true
 
-;	radius = 12
+	radius = 12
 
 ;--------------------------------------------
 ; modules                                   ;
 ;--------------------------------------------
 
+[module/date-icon]
+	type	= custom/text
+	content	= ""
+	content-font	= 3
+	content-padding	= 0
+	content-foreground	= ${colors.fg}
+
+[module/spacer]
+	type	= custom/text
+	content	= "  "
+	content-padding	= 1
+
 [module/date]
 	type     = internal/date
 	interval = 1.0
 	time     = "%I:%M %p"
-	date     = "%A - %d/%m/%Y"
+	date     = "%a %Y-%m-%d"
 	label    = "%date% %time%"
 
 	format         = <label>
 	format-padding = 0
 
-	label-foreground = ${colors.yellow_1}
-	label-padding    = 4
+	label-foreground = ${colors.fg}
+	label-padding    = 2
 
 [module/battery]
 	type          = internal/battery
@@ -80,27 +92,27 @@
 	poll-interval = 5
 
 	format-charging = <label-charging>
-	label-charging            = " %percentage%%"
-	label-charging-foreground = ${colors.green_1}
-	label-charging-padding    = 1
+	label-charging            = " %percentage%%"
+	label-charging-foreground = ${colors.fg}
+	label-charging-padding    = 0
 
-	format-discharging = <ramp-capacity><label-discharging>
+	format-discharging = <ramp-capacity> <label-discharging>
 	label-discharging            = "%percentage%%"
-	label-discharging-foreground = ${colors.yellow_1}
-	label-discharging-padding    = 1
-	ramp-capacity-0				= ""
-	ramp-capacity-1				= ""
-	ramp-capacity-2				= ""
-	ramp-capacity-3				= ""
-	ramp-capacity-4				= ""
-	ramp-capacity-5				= ""
-	ramp-capacity-6				= ""
-	ramp-capacity-7				= ""
+	label-discharging-foreground = ${colors.fg}
+	label-discharging-padding    = 0
+	ramp-capacity-0				= ""
+	ramp-capacity-1				= ""
+	ramp-capacity-2				= ""
+	ramp-capacity-3				= ""
+	ramp-capacity-4				= ""
+	ramp-capacity-5				= ""
+	ramp-capacity-6				= ""
+	ramp-capacity-7				= ""
 
 	format-full = <label-full>
-	label-full            		= " %percentage%%"
-	label-full-foreground 		= ${colors.blue_1}
-	label-full-padding    		= 1
+	label-full            		= " %percentage%%"
+	label-full-foreground 		= ${colors.fg}
+	label-full-padding    		= 0
 
 [module/volume]
 	type          = internal/pulseaudio
@@ -109,22 +121,25 @@
 	mapped = true
 
 	label-volume            = "%percentage%%"
-	label-volume-foreground = ${colors.cyan_1}
-	ramp-volume-foreground	= ${colors.cyan_1}
-
+	label-volume-foreground = ${colors.fg}
+	ramp-volume-foreground	= ${colors.fg}
+	label-volume-padding	= 0
 
 	format-muted = <label-muted>
 
-	label-muted            = ""
-	label-muted-foreground = ${colors.red_1}
-	label-muted-padding    = 1
+	label-muted				= ""
+	label-muted-font		= 3
+	label-muted-foreground	= ${colors.fg}
+	label-muted-padding		= 1
 
 	format-volume-padding = 0
 	format-muted-padding  = 0
 
-	ramp-volume-0 = ""
-	ramp-volume-1 = ""
-	ramp-volume-2 = ""
+	ramp-volume-font	= 3
+	ramp-volume-padding	= 0
+	ramp-volume-0 		= ""
+	ramp-volume-1 		= ""
+	ramp-volume-2 		= ""
 
 [module/cpu]
 	type             = internal/cpu
@@ -145,39 +160,45 @@
 	label-foreground = ${colors.cyan_1}
 	label-padding    = 1
 
-
 [module/workspaces]
 	type            = internal/bspwm
-	format          = <label-state><label-mode>
+	format          = <label-state>
 	index-sort      = true
 	wrapping-scroll = false
 
 	label-focused-background = ${colors.fg}
 	label-focused-foreground = ${colors.bg}
 	label-focused-padding    = 1
+	label-focused = %index%
 
 	label-empty = 
 
 	label-occupied-padding    = 1
+	label-occupied = %index%
 
 	label-urgent-background = ${colors.red_1}
 	label-urgent-foreground = ${colors.fg}
 	label-urgent-padding    = 1
+	label-urgent = %index%
 
 	pin-workspaces = true
 
 [module/sys-menu]
 	type					= custom/menu
 	expand-right			= false
-	label-open				= 
-	label-open-foreground	= ${colors.cyan_1}
-	label-close				= 
+	label-open				= ""
+	label-open-foreground	= ${colors.fg}
+	label-close				= ""
 	label-separator			= "  "
+	label-open-font			= 3
+	label-close-font		= 3
 
-	menu-0-0				= 
-	menu-0-0-foreground		= ${colors.red_1}
+	menu-0-0				= ""
+	menu-0-0-foreground		= ${colors.fg}
 	menu-0-0-exec			= shutdown now
+	menu-0-0-font			= 3
 
-	menu-0-1				= 
-	menu-0-1-foreground		= ${colors.green_1}
+	menu-0-1				= ""
+	menu-0-1-foreground		= ${colors.fg}
 	menu-0-1-exec			= bspc quit
+	menu-0-1-font			= 3

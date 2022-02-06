@@ -12,7 +12,7 @@ Gettin' there.
 
 Not all of them. Will update in the future...
 
-`bspwm`, `sxhkd`, `rofi`, `polybar`, `nitrogen`, `flameshot`
+`bspwm`, `sxhkd`, `rofi`, `polybar`, `nitrogen`, `flameshot`, `ttf-iosevka-nerd`
 
 ## Cool Features
 
