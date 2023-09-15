@@ -1,204 +1,161 @@
-;--------------------------------------------
-; Colors                                    ;
-;--------------------------------------------
-
 [colors]
-	bg        = ${xrdb:background}
-	fg        = ${xrdb:foreground}
-	black_1   = ${xrdb:color0}
-	black_2   = ${xrdb:color8}
-	red_1     = ${xrdb:color1}
-	red_2     = ${xrdb:color9}
-	green_1   = ${xrdb:color2}
-	green_2   = ${xrdb:color10}
-	yellow_1  = ${xrdb:color3}
-	yellow_2  = ${xrdb:color11}
-	blue_1    = ${xrdb:color4}
-	blue_2    = ${xrdb:color12}
-	magenta_1 = ${xrdb:color5}
-	magenta_2 = ${xrdb:color13}
-	cyan_1    = ${xrdb:color6}
-	cyan_2    = ${xrdb:color14}
-	white_1   = ${xrdb:color7}
-	white_2   = ${xrdb:color15}
+background = #282A2E
+background-alt = #373B41
+foreground = #C5C8C6
+primary = #F0C674
+secondary = #8ABEB7
+alert = #A54242
+disabled = #707880
 
-;--------------------------------------------
-; Base Bar                                  ;
-;--------------------------------------------
+[bar/example]
+width = 100%
+height = 24pt
+radius = 6
 
-[bar/base]
-	width    = 100%
-	height   = 32
-	offset-x = 0
-	offset-y = 0
+; dpi = 96
 
-	bottom = false
+background = ${colors.background}
+foreground = ${colors.foreground}
 
-	background = ${colors.bg}
-	foreground = ${colors.fg}
+line-size = 3pt
 
-;	border-bottom-size = 0
-	border-top-size    = 8
-	border-left-size   = 8
-	border-right-size  = 8
+border-size = 4pt
+border-color = #00000000
 
-	font-N = <fontconfig pattern>;<vertical offset>
-	font-0 = "Iosevka:size=10:weight=bold;4"
-	font-1 = "Iosevka:size=12;3"
-	font-2 = "Iosevka:size=18;6"
+padding-left = 0
+padding-right = 1
 
-	modules-right  = battery spacer volume spacer date-icon date
-	modules-center = sys-menu
-	modules-left = workspaces
+module-margin = 1
 
-	fixed-center = true
+separator = |
+separator-foreground = ${colors.disabled}
 
-	radius = 12
+font-0 = IosevkaTerm;2
 
-;--------------------------------------------
-; modules                                   ;
-;--------------------------------------------
+modules-left = xworkspaces xwindow
+modules-right = filesystem pulseaudio memory cpu battery date
 
-[module/date-icon]
-	type	= custom/text
-	content	= ""
-	content-font	= 3
-	content-padding	= 0
-	content-foreground	= ${colors.fg}
+cursor-click = pointer
+cursor-scroll = ns-resize
 
-[module/spacer]
-	type	= custom/text
-	content	= "  "
-	content-padding	= 1
+enable-ipc = true
 
-[module/date]
-	type     = internal/date
-	interval = 1.0
-	time     = "%I:%M %p"
-	date     = "%a %Y-%m-%d"
-	label    = "%date% %time%"
+; tray-position = right
 
-	format         = <label>
-	format-padding = 0
+; wm-restack = generic
+; wm-restack = bspwm
+; wm-restack = i3
 
-	label-foreground = ${colors.fg}
-	label-padding    = 2
+; override-redirect = true
 
-[module/battery]
-	type          = internal/battery
-	full-at       = 98
-	battery       = BAT0
-	adapter       = AC0
-	poll-interval = 5
+[module/xworkspaces]
+type = internal/xworkspaces
 
-	format-charging = <label-charging>
-	label-charging            = " %percentage%%"
-	label-charging-foreground = ${colors.fg}
-	label-charging-padding    = 0
+label-active = %name%
+label-active-background = ${colors.background-alt}
+label-active-underline= ${colors.primary}
+label-active-padding = 1
 
-	format-discharging = <ramp-capacity> <label-discharging>
-	label-discharging            = "%percentage%%"
-	label-discharging-foreground = ${colors.fg}
-	label-discharging-padding    = 0
-	ramp-capacity-0				= ""
-	ramp-capacity-1				= ""
-	ramp-capacity-2				= ""
-	ramp-capacity-3				= ""
-	ramp-capacity-4				= ""
-	ramp-capacity-5				= ""
-	ramp-capacity-6				= ""
-	ramp-capacity-7				= ""
+label-occupied = %name%
+label-occupied-padding = 1
 
-	format-full = <label-full>
-	label-full            		= " %percentage%%"
-	label-full-foreground 		= ${colors.fg}
-	label-full-padding    		= 0
+label-urgent = %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
 
-[module/volume]
-	type          = internal/pulseaudio
-	format-volume = <ramp-volume> <label-volume>
+label-empty = %name%
+label-empty-foreground = ${colors.disabled}
+label-empty-padding = 1
 
-	mapped = true
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:60:...%
 
-	label-volume            = "%percentage%%"
-	label-volume-foreground = ${colors.fg}
-	ramp-volume-foreground	= ${colors.fg}
-	label-volume-padding	= 0
+[module/filesystem]
+type = internal/fs
+interval = 25
 
-	format-muted = <label-muted>
+mount-0 = /
 
-	label-muted				= ""
-	label-muted-font		= 3
-	label-muted-foreground	= ${colors.fg}
-	label-muted-padding		= 1
+label-mounted = %{F#F0C674}%mountpoint%%{F-} %percentage_used%%
 
-	format-volume-padding = 0
-	format-muted-padding  = 0
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.disabled}
 
-	ramp-volume-font	= 3
-	ramp-volume-padding	= 0
-	ramp-volume-0 		= ""
-	ramp-volume-1 		= ""
-	ramp-volume-2 		= ""
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume-prefix = "VOL "
+format-volume-prefix-foreground = ${colors.primary}
+format-volume = <label-volume>
+
+label-volume = %percentage%%
+
+label-muted = muted
+label-muted-foreground = ${colors.disabled}
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+label-layout = %layout%
+label-layout-foreground = ${colors.primary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-foreground = ${colors.background}
+label-indicator-background = ${colors.secondary}
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "RAM "
+format-prefix-foreground = ${colors.primary}
+label = %percentage_used:2%%
 
 [module/cpu]
-	type             = internal/cpu
-	interval         = 0.5
-	format           = <label>
-	label            = %percentage%%
-	label-background = ${colors.bg}
-	label-foreground = ${colors.magenta_1}
-	label-padding    = 1
+type = internal/cpu
+interval = 2
+format-prefix = "CPU "
+format-prefix-foreground = ${colors.primary}
+label = %percentage:2%%
 
-[module/ram]
-	type     = internal/memory
-	interval = 3
+[network-base]
+type = internal/network
+interval = 5
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+label-disconnected = %{F#F0C674}%ifname%%{F#707880} disconnected
 
-	format           = <label>
-	label            = "%percentage_used%%"
-	label-background = ${colors.bg}
-	label-foreground = ${colors.cyan_1}
-	label-padding    = 1
+[module/wlan]
+inherit = network-base
+interface-type = wireless
+label-connected = %{F#F0C674}%ifname%%{F-} %essid% %local_ip%
 
-[module/workspaces]
-	type            = internal/bspwm
-	format          = <label-state>
-	index-sort      = true
-	wrapping-scroll = false
+[module/eth]
+inherit = network-base
+interface-type = wired
+label-connected = %{F#F0C674}%ifname%%{F-} %local_ip%
 
-	label-focused-background = ${colors.fg}
-	label-focused-foreground = ${colors.bg}
-	label-focused-padding    = 1
-	label-focused = %index%
+[module/date]
+type = internal/date
+interval = 1
 
-	label-empty = 
+date = %Y-%m-%d %H:%M
+date-alt = %Y-%m-%d %H:%M:%S
 
-	label-occupied-padding    = 1
-	label-occupied = %index%
+label = %date%
+label-foreground = ${colors.primary}
 
-	label-urgent-background = ${colors.red_1}
-	label-urgent-foreground = ${colors.fg}
-	label-urgent-padding    = 1
-	label-urgent = %index%
+[module/battery]
+type = internal/battery
+full-at = 99
+low-at = 5
+battery = BAT0
+adapter = ADP1
+poll-interval = 5
 
-	pin-workspaces = true
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
 
-[module/sys-menu]
-	type					= custom/menu
-	expand-right			= false
-	label-open				= ""
-	label-open-foreground	= ${colors.fg}
-	label-close				= ""
-	label-separator			= "  "
-	label-open-font			= 3
-	label-close-font		= 3
-
-	menu-0-0				= ""
-	menu-0-0-foreground		= ${colors.fg}
-	menu-0-0-exec			= shutdown now
-	menu-0-0-font			= 3
-
-	menu-0-1				= ""
-	menu-0-1-foreground		= ${colors.fg}
-	menu-0-1-exec			= bspc quit
-	menu-0-1-font			= 3
