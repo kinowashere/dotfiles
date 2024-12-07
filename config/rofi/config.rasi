@@ -1,8 +1,53 @@
+/* #0C0C0C rgb(12,12,12) */
+/* #191919 rgb(25,25,25) */
+/* #C5C8C6C rgb(197,200,198) */
+/* #F0C674 rgb(240,198,116) */
+
 configuration {
- modi: "window,drun,ssh,file-browser";
- kb-cancel: "Escape,Alt+F1";
- color-normal: "#1c2023, #919ba0, #1c2023, #a4a4a4, #1c2023";
- color-urgent: "argb:00000000, #f43753, argb:00000000, argb:00000000, #e29a49";
- color-active: "argb:00000000, #49bbfb, argb:00000000, argb:00000000, #e29a49";
- color-window: "#1c2023, #919ba0, #1c2023";
- }
+  modes: [ combi ];
+  combi-modes: [ drun ];
+}
+
+* {
+  font: "IosevkaNerdFontMono 10";
+  background: rgb(12,12,12);
+  selected-normal-background: rgb(25,25,25);
+  alternate-normal-background: var(background);
+  foreground: rgb(197,200,198);
+  separatorcolor: var(background);
+}
+
+window {
+  border-color: rgb(25,25,25);
+}
+
+mainbox { 
+  border-color: rgb(12,12,12); 
+}
+
+inputbar {
+  background-color: var(background);
+  padding: 0;
+}
+
+entry {
+  placeholder: "";
+  background-color: rgb(12,12,12);
+  font: "IosevkaNerdFontMono Italic 10";
+}
+
+prompt {
+  font: "IosevkaNerdFontMono Italic 10";
+}
+
+scrollbar {
+  handle-color: rgb(25,25,25);
+}
+
+element-text {
+  text-color: rgb(197,200,198);
+}
+
+inputbar, prompt {
+  text-color: rgb(240,198,116);
+}
