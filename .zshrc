@@ -15,9 +15,3 @@ eval "$(mise activate zsh --shims)"
 
 # docker
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
-
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/kino/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
